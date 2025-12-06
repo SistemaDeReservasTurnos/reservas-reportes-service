@@ -56,5 +56,10 @@ public class ReportReservationRepositoryPersistence implements IReportRepository
         List<ReportReservationModel> reservations = springReportReservationRepository.findCompletedStatusByDate(startDate);
         return reservations.stream().map(ReportReservationModelMapper::toDomain).toList();
     }
+
+    @Override
+    public Double getTotalForRange(LocalDate start, LocalDate end) {
+        return springReportReservationRepository.getTotalByRange(start, end);
+    }
 }
 

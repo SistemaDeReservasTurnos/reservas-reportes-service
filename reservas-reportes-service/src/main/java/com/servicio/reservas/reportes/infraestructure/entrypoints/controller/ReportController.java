@@ -1,7 +1,9 @@
 package com.servicio.reservas.reportes.infraestructure.entrypoints.controller;
 
 
+import com.servicio.reservas.reportes.application.dto.ReportTotalAmount;
 import com.servicio.reservas.reportes.application.services.ReportReservationService;
+import com.servicio.reservas.reportes.domain.enums.ReportPeriod;
 import com.servicio.reservas.reportes.domain.model.ReportReservation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,5 +28,13 @@ public class ReportController {
     ) {
         List<ReportReservation> reservations =  reportReservationService.getReservationsCompletedForTime(period);
         return ResponseEntity.ok().body(reservations);
+    }
+
+    @GetMapping("/amount-period")
+    public ResponseEntity<ReportTotalAmount> getTotalAmountForTime(
+            @RequestParam ReportPeriod period
+    ){
+        ReportTotalAmount reportAmount = reportReservationService.getTotalAmountForTime(period);
+        return ResponseEntity.ok().body(reportAmount);
     }
 }
