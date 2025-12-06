@@ -95,11 +95,13 @@ public class ReportReservationService implements IReservationEventListener {
                 today
         ));
 
-        ReportTotalAmount.FinancialData data = new ReportTotalAmount.FinancialData();
-        data.setCurrent_period_total(currentPeriodTotal);
-        data.setPrevious_period_total(previousPeriodTotal);
-        data.setPercentage_variation(Math.round(variation * 100.0) / 100.0);
-        data.setTrends(trend);
+        ReportTotalAmount.FinancialData data = new ReportTotalAmount.FinancialData(
+                currentPeriodTotal,
+                previousPeriodTotal,
+                Math.round(variation * 100.0) / 100.0,
+                trend,
+                "COP"
+        );
 
         totalAmount.setData(data);
 

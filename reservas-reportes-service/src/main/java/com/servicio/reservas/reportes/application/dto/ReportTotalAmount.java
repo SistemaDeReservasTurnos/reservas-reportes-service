@@ -22,12 +22,11 @@ public class ReportTotalAmount {
 
     @Data
     @AllArgsConstructor
-    @NoArgsConstructor
     public static class FinancialData{
-        private Double current_period_total;
-        private Double previous_period_total;
-        private Double percentage_variation;
-        private String trends;
-        private String currency = "COP";
+        private Double currentPeriodTotal;
+        private Double previousPeriodTotal;
+        private Double percentageVariation;
+        private String trend;
+        private String currency;
     }
 }
