@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
         if (ex.getRequiredType() != null && ex.getRequiredType().isEnum()) {
             Map<String, String> info = new HashMap<>();
             info.put("parameter", ex.getName());
-            info.put("received_value: ", String.valueOf(ex.getValue()));
+            info.put("received_value:", String.valueOf(ex.getValue()));
             info.put("allowed_values", Arrays.toString(ex.getRequiredType().getEnumConstants()));
             detailsError = info;
         } else {
