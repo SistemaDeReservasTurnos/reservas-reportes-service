@@ -61,13 +61,13 @@ public class ReportReservationService implements IReservationEventListener {
             case WEEK:
                 currentStart = today.minusDays(7);
                 previousEnd = currentStart.minusDays(1);
-                previousStart = previousEnd.minusDays(7);
+                previousStart = previousEnd.minusDays(6);
                 break;
 
             case MONTH:
                 currentStart = today.minusMonths(1);
                 previousEnd = currentStart.minusDays(1);
-                previousStart = previousEnd.minusMonths(1);
+                previousStart = previousEnd.minusMonths(1).plusDays(1);
                 break;
 
             default:
