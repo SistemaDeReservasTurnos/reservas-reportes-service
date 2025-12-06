@@ -84,7 +84,7 @@ public class ReportReservationService implements IReservationEventListener {
             variation = 100.0;
         }
 
-        String trend = variation >= 0 ? "positive"  : "negative";
+        String trend = variation > 0 ? "positive"  : (variation < 0) ? "negative" : "neutral";
 
         ReportTotalAmount totalAmount = new ReportTotalAmount();
         totalAmount.setReport("Total Amount By Periods");
