@@ -13,4 +13,5 @@ public interface IReportRepository {
     void cancelReservation(CancelReservationEvent event);
     void completedReservation(CompletedReservationEvent event);
     List<ReportReservation> findCompletedByDate(LocalDate startDate);
+    Double getTotalForRange(LocalDate start, LocalDate end);
 }

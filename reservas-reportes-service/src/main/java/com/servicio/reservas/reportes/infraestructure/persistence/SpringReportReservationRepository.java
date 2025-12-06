@@ -18,4 +18,12 @@ public interface SpringReportReservationRepository extends JpaRepository<ReportR
     AND r.date >= :startDate
 """)
     List<ReportReservationModel> findCompletedStatusByDate(@Param("startDate") LocalDate startDate);
+
+    @Query(
+            "SELECT COALESCE(SUM(r.amount), 0.0) FROM ReportReservationModel r " +
+            "WHERE r.status = 'COMPLETED' " +
+            "AND r.date BETWEEN :startDate AND :endDate")
+    Double getTotalByRange(@Param("startDate") LocalDate startDate,
+                                @Param("endDate") LocalDate endDate);
+
 }
