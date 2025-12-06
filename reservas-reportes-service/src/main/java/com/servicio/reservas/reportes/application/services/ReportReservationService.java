@@ -46,7 +46,6 @@ public class ReportReservationService implements IReservationEventListener{
             default -> throw new Error("Invalid period: " + period + ". Supported values are: 'week', 'month'");
         };
 
-        List<ReportReservationModel> reservationsModel = repo.findCompletedByDate(startDate);
-        return reservationsModel.stream().map(ReportReservationModelMapper::toDomain).toList();
+        return repo.findCompletedByDate(startDate);
     }
 }

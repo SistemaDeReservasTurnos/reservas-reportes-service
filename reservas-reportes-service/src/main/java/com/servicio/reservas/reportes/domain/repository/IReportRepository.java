@@ -12,5 +12,5 @@ public interface IReportRepository {
     void saveReservation(ReportReservation reservation);
     void cancelReservation(CancelReservationEvent event);
     void completedReservation(CompletedReservationEvent event);
-    List<ReportReservationModel> findCompletedByDate(LocalDate startDate);
+    List<ReportReservation> findCompletedByDate(LocalDate startDate);
 }

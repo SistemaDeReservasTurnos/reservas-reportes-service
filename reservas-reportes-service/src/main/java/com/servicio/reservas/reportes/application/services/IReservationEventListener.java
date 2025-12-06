@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface IReservationEventListener {
     void procesarReservaCreada(CreateReservationEvent reservationEvent);
-    void procesarReservaCancelada(CancelReservationEvent resrvationEvent);
+    void procesarReservaCancelada(CancelReservationEvent reservationEvent);
     void procesarReservaCompletada(CompletedReservationEvent reservationEvent);
     List<ReportReservation> getReservationsCompletedForTime(String period);
 }

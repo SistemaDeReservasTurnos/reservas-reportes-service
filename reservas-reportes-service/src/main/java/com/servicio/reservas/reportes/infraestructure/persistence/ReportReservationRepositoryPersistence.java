@@ -52,8 +52,9 @@ public class ReportReservationRepositoryPersistence implements IReportRepository
     }
 
     @Override
-    public List<ReportReservationModel> findCompletedByDate(LocalDate startDate) {
-        return springReportReservationRepository.findCompletedStatusByDate(startDate);
+    public List<ReportReservation> findCompletedByDate(LocalDate startDate) {
+        List<ReportReservationModel> reservations = springReportReservationRepository.findCompletedStatusByDate(startDate);
+        return reservations.stream().map(ReportReservationModelMapper::toDomain).toList();
     }
 }
 
