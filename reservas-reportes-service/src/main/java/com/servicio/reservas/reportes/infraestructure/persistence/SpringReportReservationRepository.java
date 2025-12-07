@@ -63,7 +63,7 @@ public interface SpringReportReservationRepository extends JpaRepository<ReportR
             "(:status IS NULL OR r.status = :status) AND " +
             "(:barberId IS NULL OR r.barberId = :barberId) AND" +
             "(r.date >= :startDate)")
-    List<ReportReservationModel> findWhitFilters(
+    List<ReportReservationModel> findWithFilters(
             @Param("userId") Long userId,
             @Param("serviceId") Long serviceId,
             @Param("status") String status,

@@ -108,12 +108,12 @@ public class ReportReservationService implements IReservationEventListener {
     }
 
     public List<ReportReservation> getReservationHistory(ReservationHistoryFilter filter) {
-        if(filter.getStatus()!= null){
-            try{
+        if (filter.getStatus() != null) {
+            try {
                 ReservationStatus.valueOf(filter.getStatus());
             } catch (IllegalArgumentException e) {
                 throw new BusinessException("Invalid filter status: " + filter.getStatus() +
-                        " status allowed are: 'COMPLETED', 'CANCELED', 'RESERVED'");
+                        " allowed statuses are: 'COMPLETED', 'CANCELED', 'RESERVED'");
             }
         }
         return repo.getReservationHistory(filter);

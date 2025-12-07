@@ -99,7 +99,7 @@ public class ReportReservationRepositoryPersistence implements IReportRepository
     public List<ReportReservation> getReservationHistory(ReservationHistoryFilter filter) {
 
 
-        List<ReportReservationModel> models = springReportReservationRepository.findWhitFilters(
+        List<ReportReservationModel> models = springReportReservationRepository.findWithFilters(
                 filter.getUserId(),
                 filter.getServiceId(),
                 filter.getStatus(),

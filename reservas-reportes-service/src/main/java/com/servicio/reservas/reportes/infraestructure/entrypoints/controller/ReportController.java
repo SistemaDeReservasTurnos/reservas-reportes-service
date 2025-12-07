@@ -47,7 +47,7 @@ public class ReportController {
     }
 
     @GetMapping("/history")
-    public ResponseEntity<List<ReportReservation>> getHistoryForTime(
+    public ResponseEntity<List<ReportReservation>> getReservationHistory(
             @ModelAttribute ReservationHistoryFilter filter
     ){
         List<ReportReservation> result = reportReservationService.getReservationHistory(filter);
