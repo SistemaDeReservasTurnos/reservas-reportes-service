@@ -13,6 +13,21 @@ public interface SpringReportReservationRepository extends JpaRepository<ReportR
     Optional<ReportReservationModel> findByReservationId(Long reservationId);
 
     @Query("""
+    SELECT r.barberId AS barberId,
+           r.nameBarber AS nameBarber,
+           COUNT(r.id) AS totalReservations
+    FROM ReportReservationModel r
+    WHERE r.status = 'COMPLETED'
+    AND r.date BETWEEN :startDate AND :endDate
+    GROUP BY r.barberId, r.nameBarber
+    ORDER BY totalReservations DESC
+""")
+    List<Object[]> findMostBusyBarbers(
+            @Param("startDate") LocalDate startDate,
+            @Param("endDate") LocalDate endDate
+    );
+
+    @Query("""
     SELECT r FROM ReportReservationModel r
     WHERE r.status = 'COMPLETED'
     AND r.date >= :startDate

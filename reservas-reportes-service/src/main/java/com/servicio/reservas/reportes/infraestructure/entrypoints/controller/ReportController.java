@@ -37,4 +37,10 @@ public class ReportController {
         ReportTotalAmount reportAmount = reportReservationService.getTotalAmountForTime(period);
         return ResponseEntity.ok().body(reportAmount);
     }
+
+    @GetMapping("/most-busy-barbers")
+    public ResponseEntity<?> getMostBusyBarbers(@RequestParam String period) {
+        return ResponseEntity.ok(reportReservationService.getMostBusyBarbers(period));
+    }
+
 }

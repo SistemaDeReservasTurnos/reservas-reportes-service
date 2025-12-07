@@ -6,6 +6,7 @@ import com.servicio.reservas.reportes.application.dto.CreateReservationEvent;
 import com.servicio.reservas.reportes.application.dto.ReportTotalAmount;
 import com.servicio.reservas.reportes.application.mappers.CreateReservationMapper;
 import com.servicio.reservas.reportes.domain.enums.ReportPeriod;
+import com.servicio.reservas.reportes.domain.model.MostBusyBarber;
 import com.servicio.reservas.reportes.domain.model.ReportReservation;
 import com.servicio.reservas.reportes.domain.repository.IReportRepository;
 import org.springframework.stereotype.Service;
@@ -107,4 +108,18 @@ public class ReportReservationService implements IReservationEventListener {
 
         return totalAmount;
     }
+
+    public List<MostBusyBarber> getMostBusyBarbers(String period) {
+        LocalDate today = LocalDate.now();
+        LocalDate startDate;
+
+        switch (period.toLowerCase()) {
+            case "week" -> startDate = today.minusDays(7);
+            case "month" -> startDate = today.minusMonths(1);
+            default -> throw new IllegalArgumentException("Invalid period: " + period);
+        }
+
+        return repo.findMostBusyBarbers(startDate, today);
+    }
+
 }
