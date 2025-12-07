@@ -1,15 +1,14 @@
 package com.servicio.reservas.reportes.application.services;
 
-import com.servicio.reservas.reportes.application.dto.CancelReservationEvent;
-import com.servicio.reservas.reportes.application.dto.CompletedReservationEvent;
-import com.servicio.reservas.reportes.application.dto.CreateReservationEvent;
-import com.servicio.reservas.reportes.application.dto.ReportTotalAmount;
+import com.servicio.reservas.reportes.application.dto.*;
 import com.servicio.reservas.reportes.application.mappers.CreateReservationMapper;
 import com.servicio.reservas.reportes.domain.enums.ReportPeriod;
+import com.servicio.reservas.reportes.domain.enums.ReservationStatus;
 import com.servicio.reservas.reportes.domain.model.MostBusyBarber;
 import com.servicio.reservas.reportes.domain.model.MostUsedService;
 import com.servicio.reservas.reportes.domain.model.ReportReservation;
 import com.servicio.reservas.reportes.domain.repository.IReportRepository;
+import com.servicio.reservas.reportes.infraestructure.exception.BusinessException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -40,7 +39,6 @@ public class ReportReservationService implements IReservationEventListener {
         repo.completedReservation(event);
     }
 
-    @Override
     public List<ReportReservation> getReservationsCompletedForTime(String period) {
         LocalDate startDate = switch (period.toLowerCase()) {
             case "week" -> LocalDate.now().minusDays(7);
@@ -51,7 +49,6 @@ public class ReportReservationService implements IReservationEventListener {
         return repo.findCompletedByDate(startDate);
     }
 
-    @Override
     public ReportTotalAmount getTotalAmountForTime(ReportPeriod period){
         LocalDate today = LocalDate.now();
         LocalDate currentStart;
@@ -108,6 +105,18 @@ public class ReportReservationService implements IReservationEventListener {
         totalAmount.setData(data);
 
         return totalAmount;
+    }
+
+    public List<ReportReservation> getReservationHistory(ReservationHistoryFilter filter) {
+        if (filter.getStatus() != null) {
+            try {
+                ReservationStatus.valueOf(filter.getStatus());
+            } catch (IllegalArgumentException e) {
+                throw new BusinessException("Invalid filter status: " + filter.getStatus() +
+                        " allowed statuses are: 'COMPLETED', 'CANCELED', 'RESERVED'");
+            }
+        }
+        return repo.getReservationHistory(filter);
     }
 
     public List<MostBusyBarber> getMostBusyBarbers(String period) {

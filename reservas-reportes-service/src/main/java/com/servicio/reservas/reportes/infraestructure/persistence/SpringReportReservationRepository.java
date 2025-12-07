@@ -56,4 +56,19 @@ public interface SpringReportReservationRepository extends JpaRepository<ReportR
     Double getTotalByRange(@Param("startDate") LocalDate startDate,
                                 @Param("endDate") LocalDate endDate);
 
+
+    @Query("SELECT r FROM ReportReservationModel r WHERE " +
+            "(:userId IS NULL OR r.userId = :userId) AND " +
+            "(:serviceId IS NULL OR r.serviceId = :serviceId) AND " +
+            "(:status IS NULL OR r.status = :status) AND " +
+            "(:barberId IS NULL OR r.barberId = :barberId) AND" +
+            "(r.date >= :startDate)")
+    List<ReportReservationModel> findWithFilters(
+            @Param("userId") Long userId,
+            @Param("serviceId") Long serviceId,
+            @Param("status") String status,
+            @Param("startDate") LocalDate startDate,
+            @Param("barberId") Long barberId
+    );
+
 }
