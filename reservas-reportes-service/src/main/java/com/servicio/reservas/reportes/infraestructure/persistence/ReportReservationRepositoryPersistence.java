@@ -2,6 +2,7 @@ package com.servicio.reservas.reportes.infraestructure.persistence;
 
 import com.servicio.reservas.reportes.application.dto.CancelReservationEvent;
 import com.servicio.reservas.reportes.application.dto.CompletedReservationEvent;
+import com.servicio.reservas.reportes.domain.model.MostBusyBarber;
 import com.servicio.reservas.reportes.domain.model.ReportReservation;
 import com.servicio.reservas.reportes.domain.repository.IReportRepository;
 import com.servicio.reservas.reportes.infraestructure.persistence.entity.ReportReservationModel;
@@ -61,5 +62,21 @@ public class ReportReservationRepositoryPersistence implements IReportRepository
     public Double getTotalForRange(LocalDate start, LocalDate end) {
         return springReportReservationRepository.getTotalByRange(start, end);
     }
+
+    @Override
+    public List<MostBusyBarber> findMostBusyBarbers(LocalDate start, LocalDate end) {
+
+        List<Object[]> results = springReportReservationRepository
+                .findMostBusyBarbers(start, end);
+
+        return results.stream()
+                .map(r -> new MostBusyBarber(
+                        ((Number) r[0]).longValue(),
+                        (String) r[1],
+                        ((Number) r[2]).longValue()
+                ))
+                .toList();
+    }
+
 }
 
