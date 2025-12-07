@@ -3,6 +3,7 @@ package com.servicio.reservas.reportes.domain.repository;
 import com.servicio.reservas.reportes.application.dto.CancelReservationEvent;
 import com.servicio.reservas.reportes.application.dto.CompletedReservationEvent;
 import com.servicio.reservas.reportes.domain.model.MostBusyBarber;
+import com.servicio.reservas.reportes.domain.model.MostUsedService;
 import com.servicio.reservas.reportes.domain.model.ReportReservation;
 import com.servicio.reservas.reportes.infraestructure.persistence.entity.ReportReservationModel;
 
@@ -16,4 +17,5 @@ public interface IReportRepository {
     List<ReportReservation> findCompletedByDate(LocalDate startDate);
     Double getTotalForRange(LocalDate start, LocalDate end);
     List<MostBusyBarber> findMostBusyBarbers(LocalDate start, LocalDate end);
+    List<MostUsedService> findMostUsedServices(LocalDate start, LocalDate end);
 }

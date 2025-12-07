@@ -43,4 +43,10 @@ public class ReportController {
         return ResponseEntity.ok(reportReservationService.getMostBusyBarbers(period));
     }
 
+    @GetMapping("/most-used-services")
+    public ResponseEntity<?> getMostUsedServices(@RequestParam String period) {
+        return ResponseEntity.ok(reportReservationService.getMostUsedServices(period));
+    }
+
+
 }
