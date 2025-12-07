@@ -2,14 +2,12 @@ package com.servicio.reservas.reportes.infraestructure.entrypoints.controller;
 
 
 import com.servicio.reservas.reportes.application.dto.ReportTotalAmount;
+import com.servicio.reservas.reportes.application.dto.ReservationHistoryFilter;
 import com.servicio.reservas.reportes.application.services.ReportReservationService;
 import com.servicio.reservas.reportes.domain.enums.ReportPeriod;
 import com.servicio.reservas.reportes.domain.model.ReportReservation;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -46,6 +44,14 @@ public class ReportController {
     @GetMapping("/most-used-services")
     public ResponseEntity<?> getMostUsedServices(@RequestParam String period) {
         return ResponseEntity.ok(reportReservationService.getMostUsedServices(period));
+    }
+
+    @GetMapping("/history")
+    public ResponseEntity<List<ReportReservation>> getHistoryForTime(
+            @ModelAttribute ReservationHistoryFilter filter
+    ){
+        List<ReportReservation> result = reportReservationService.getReservationHistory(filter);
+        return ResponseEntity.ok().body(result);
     }
 
 

@@ -2,6 +2,7 @@ package com.servicio.reservas.reportes.infraestructure.persistence;
 
 import com.servicio.reservas.reportes.application.dto.CancelReservationEvent;
 import com.servicio.reservas.reportes.application.dto.CompletedReservationEvent;
+import com.servicio.reservas.reportes.application.dto.ReservationHistoryFilter;
 import com.servicio.reservas.reportes.domain.model.MostBusyBarber;
 import com.servicio.reservas.reportes.domain.model.MostUsedService;
 import com.servicio.reservas.reportes.domain.model.ReportReservation;
@@ -78,6 +79,7 @@ public class ReportReservationRepositoryPersistence implements IReportRepository
                 ))
                 .toList();
     }
+
     @Override
     public List<MostUsedService> findMostUsedServices(LocalDate start, LocalDate end) {
 
@@ -93,6 +95,19 @@ public class ReportReservationRepositoryPersistence implements IReportRepository
                 .toList();
     }
 
+    @Override
+    public List<ReportReservation> getReservationHistory(ReservationHistoryFilter filter) {
+
+
+        List<ReportReservationModel> models = springReportReservationRepository.findWhitFilters(
+                filter.getUserId(),
+                filter.getServiceId(),
+                filter.getStatus(),
+                filter.getStartDate(),
+                filter.getBarberId()
+        );
+        return models.stream().map(ReportReservationModelMapper::toDomain).toList();
+    }
 
 }
 
