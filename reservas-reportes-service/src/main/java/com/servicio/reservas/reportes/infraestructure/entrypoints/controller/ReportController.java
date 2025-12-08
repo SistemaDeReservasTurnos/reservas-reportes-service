@@ -7,6 +7,7 @@ import com.servicio.reservas.reportes.application.services.ReportReservationServ
 import com.servicio.reservas.reportes.domain.enums.ReportPeriod;
 import com.servicio.reservas.reportes.domain.model.ReportReservation;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class ReportController {
     }
 
     @GetMapping("/reservations-completed")
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRADOR')")
     public ResponseEntity<List<ReportReservation>> getReservationsCompletedForTime(
             @RequestParam String period
     ) {
@@ -29,6 +31,7 @@ public class ReportController {
     }
 
     @GetMapping("/amount-period")
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRADOR')")
     public ResponseEntity<ReportTotalAmount> getTotalAmountForTime(
             @RequestParam ReportPeriod period
     ){
@@ -37,16 +40,19 @@ public class ReportController {
     }
 
     @GetMapping("/most-busy-barbers")
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRADOR')")
     public ResponseEntity<?> getMostBusyBarbers(@RequestParam String period) {
         return ResponseEntity.ok(reportReservationService.getMostBusyBarbers(period));
     }
 
     @GetMapping("/most-used-services")
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRADOR')")
     public ResponseEntity<?> getMostUsedServices(@RequestParam String period) {
         return ResponseEntity.ok(reportReservationService.getMostUsedServices(period));
     }
 
     @GetMapping("/history")
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRADOR')")
     public ResponseEntity<List<ReportReservation>> getReservationHistory(
             @ModelAttribute ReservationHistoryFilter filter
     ){
